@@ -17,7 +17,9 @@ class ViewController: UIViewController {
         
         let l = UILabel()
         l.text = "$ 00.00"
-        l.font = UIFont(name: "Helvetica Neue", size: 50)
+        l.font = UIFont(name: "HelveticaNeue-UltraLight", size: 50)
+        l.shadowColor = .gray;
+        l.shadowOffset = CGSize(width: 2, height: 2)
         l.textAlignment = .center
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
@@ -26,7 +28,7 @@ class ViewController: UIViewController {
     let billAmountLabel : UILabel = {
         let l = UILabel()
         l.text = "Total Amount"
-        l.font = UIFont(name: "Helvetica Neue", size: 18)
+        l.font = UIFont(name: "HelveticaNeue-UltraLight", size: 18)
         l.textAlignment = .left
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
@@ -35,7 +37,7 @@ class ViewController: UIViewController {
     var billAmountTextFiel : UITextField = {
         let tf = UITextField()
         tf.text = "Bill Amount"
-        tf.font = UIFont(name: "Helvetica Neue", size: 25)
+        tf.font = UIFont(name: "HelveticaNeue-UltraLight", size: 25)
         tf.textColor = UIColor.lightGray
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.lightGray.cgColor
@@ -50,7 +52,8 @@ class ViewController: UIViewController {
     let tipPercentageLabel : UILabel = {
         let l = UILabel()
         l.text = "Tip Percentage"
-        l.font = UIFont(name: "Helvetica Neue", size: 18)
+        l.font = UIFont(name: "HelveticaNeue-UltraLight", size: 18)
+        l.textAlignment = .left
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
@@ -72,14 +75,18 @@ class ViewController: UIViewController {
         let l = UILabel()
         l.text = "15 %"
         l.textAlignment = .center
-        l.font = UIFont(name: "Helvetica Neue", size: 18)
+        l.font = UIFont(name: "AvenirNextCondensed-UltraLight", size: 18)
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
+        
     }()
     
     let calculateTipButton : UIButton = {
         let b = UIButton()
         b.setTitle("Calculate Tip", for: .normal)
+        b.titleLabel?.font =  UIFont(name: "AvenirNextCondensed-regular", size: 30)
+        b.setTitleShadowColor(UIColor.lightGray, for: .normal)
+        b.titleLabel?.shadowOffset = CGSize(width: -2, height: -3)
         b.backgroundColor = .cyan
         b.addTarget(self , action: #selector(calculateTip), for: .touchUpInside)
         return b
@@ -99,14 +106,14 @@ class ViewController: UIViewController {
         
         
         let amountSV = VerticalStackView(arrangedSubviews: [billAmountLabel,billAmountTextFiel], spacing: 0, alignment: .fill, distribution: .fill)
-        
+        billAmountLabel.constraintWidth(equalToConstant: 50)
         billAmountTextFiel.constraintHeight(equalToConstant: 50)
         
         
         let tipSV = VerticalStackView(arrangedSubviews: [tipPercentageLabel,tipPercentageSlider,tipPercentageSladerValor], spacing: 0, alignment: .fill, distribution: .fillProportionally)
         
-        
         let buttonSV = VerticalStackView(arrangedSubviews: [calculateTipButton], spacing: 0, alignment: .fill, distribution: .fill)
+        
         calculateTipButton.matchParent()
         calculateTipButton.constraintHeight(equalToConstant: 40)
         
@@ -116,7 +123,7 @@ class ViewController: UIViewController {
         
         scrollView.addSubview(verticalSV)
         verticalSV.centerXYin(scrollView)
-        marginTopBor = view.frame.height * 0.3 / 2
+        marginTopBor = view.frame.height * 0.45 / 2
         verticalSV.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -marginTopBor).isActive = true
         verticalSV.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: marginTopBor).isActive = true
         verticalSV.rightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.rightAnchor, constant: -20).isActive = true
